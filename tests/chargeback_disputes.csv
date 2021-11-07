@@ -1,0 +1,8 @@
+transation,client,tx,amount
+deposit,1,1,10
+deposit,2,2,5
+withdrawal,2,3,5
+dispute,2,3,
+dispute,1,1,
+chargeback,1,1,
+chargeback,2,3,

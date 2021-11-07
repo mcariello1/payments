@@ -1,0 +1,5 @@
+transation,client,tx,amount
+deposit,1,1,5
+deposit,2,2,5
+withdrawal,1,3,10
+withdrawal,2,4,10
