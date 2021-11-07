@@ -7,10 +7,15 @@ class Client:
     def __init__(self): 
         self.__account_data = {'transactions':{},'available':0, 'held': 0, 'locked':False}
 
-    def is_locked(self):
+    def is_locked(self) ->bool:
+        """If called returns bool if client is locked
+    
+        """
         return self.__account_data['locked']
     
-    def get_account_information(self):
+    def get_account_information(self)->str:
+        """Gets current account information of client
+        """
         total = self.get_total_funds()
         available = self.__account_data["available"]
         held = self.__account_data["held"]
@@ -19,16 +24,25 @@ class Client:
 
     
     def get_total_funds(self):
+        """Calculates total funds in account
+        """
         return self.__account_data['available'] + self.__account_data['held']
 
     def deposit(self, tx: int, amount: float) -> None:
-
-        
+        """Deposits money from clients account
+        Args:
+            tx (int): The transaction id of the disputed transaction
+            amount (float): amount to deposit into account
+        """
         self.__account_data['available'] += amount
         self.__account_data['transactions'][tx] = [amount, 'deposit']
 
-    def withdrawal(self, tx: int, amount: float):
-        
+    def withdrawal(self, tx: int, amount: float) -> None:
+        """Withdraws money from a clients account
+        Args: 
+           tx (int): The transaction id of the disputed transaction
+           amount (float): amount to deposit into account
+       """
         if amount > self.__account_data['available']:
                 #If a client does not have sufficient available funds the withdrawal should fail and the total amount of funds should not change
             pass
@@ -38,11 +52,11 @@ class Client:
             self.__account_data['transactions'][tx] = [amount, 'withdrawal']
             
 
-    def dispute(self, tx: int): 
+    def dispute(self, tx: int)-> None: 
         """
         Disputed holds the funds until a resolve or chargeback is performed on that transaction
         Args: 
-        tx (int): The transaction id of the disputed transaction
+           tx (int): The transaction id of the disputed transaction
         """
     
         # alternative if withdrawal or deposit from clients account is disputed
@@ -66,9 +80,9 @@ class Client:
 
 
 
-    def resolve(self, tx: int):
+    def resolve(self, tx: int)->None:
         """
-        Resolve allows original transaction to complete back to its original state. 
+        Resolve allows original transac tion to complete back to its original state. 
         Args:
         tx (int): transaction id of disputed transaction
         """
@@ -81,7 +95,7 @@ class Client:
             pass
 
 
-    def chargeback(self, tx: int):
+    def chargeback(self, tx: int)->None:
         """
         Chargeback reverses the transaction and flags the account as locked. 
         Args:
@@ -105,6 +119,8 @@ class PaymentsProcessing:
 
 
     def process_transactions(self) -> str:
+        """Open csv file provided and stream data performing actions given
+        """
         with open(self.transactions_filename) as transactions_csv:
             reader = csv.reader(transactions_csv)
             for row in reader:
