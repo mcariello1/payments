@@ -2,7 +2,7 @@
 # Prequisites
 Must be running on python 3.7+ 
 # Executing
-python3 payment_engine.py transactions.csv > client_accounts.csv
+`python3 payment_engine.py transactions.csv > client_accounts.csv`
 
 Basics:
 Application runs as intended , reads and writes data to csv if following proper execution
