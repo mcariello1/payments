@@ -76,23 +76,24 @@ class Client:
 
         self.__account_data['held'] += self.__account_data['transactions'][tx][0]
         self.__account_data['available'] -= self.__account_data['transactions'][tx][0]
-
+        self.__account_data['transactions'][tx].append('dispute')
 
 
 
     def resolve(self, tx: int)->None:
         """
-        Resolve allows original transac tion to complete back to its original state. 
+        Resolve allows original transaction to complete back to its original state.
         Args:
         tx (int): transaction id of disputed transaction
         """
-        if tx in self.__account_data['transactions']:
 
-            self.__account_data['held'] -= self.__account_data['transactions'][tx][0]
-            self.__account_data['available'] += self.__account_data['transactions'][tx][0]
-        else:
-            #ignore as faulty message 
-            pass
+        if tx in self.__account_data['transactions']:
+            if 'dispute' in self.__account_data['transactions'][tx]:
+                self.__account_data['held'] -= self.__account_data['transactions'][tx][0]
+                self.__account_data['available'] += self.__account_data['transactions'][tx][0]
+                self.__account_data['transactions'][tx].remove('dispute')
+
+        #otherwise ignore
 
 
     def chargeback(self, tx: int)->None:
@@ -102,11 +103,13 @@ class Client:
         tx (int): transaction id of disputed transaction
         """ 
         if tx in self.__account_data['transactions']:
-            self.__account_data['held'] -= self.__account_data['transactions'][tx][0]
-            self.__account_data['locked'] = True
-        else:
-            #ignore as faulty message 
-            pass
+            if 'dispute' in self.__account_data['transactions'][tx]:
+                self.__account_data['held'] -= self.__account_data['transactions'][tx][0]
+                self.__account_data['locked'] = True
+                self.__account_data['transactions'][tx].remove('dispute')
+
+        # otherwise ignore as faulty message
+
 
 
 
