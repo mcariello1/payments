@@ -4,7 +4,7 @@ Must be running on python 3.7+
 # Executing
 `python3 payment_engine.py transactions.csv > client_accounts.csv`
 # Test Execution
-`python3 test.py
+`python3 test.py`
 
 **Basics**\
 Application runs as intended , reads and writes data to csv if following proper execution\
