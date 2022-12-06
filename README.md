@@ -1,4 +1,5 @@
 # Payments
+Conceptual engine for making payments and transactions simulating a banking app or banking system
 # Prequisites
 Must be running on python 3.7+ 
 # Executing
